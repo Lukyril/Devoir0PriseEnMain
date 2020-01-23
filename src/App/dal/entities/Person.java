@@ -1,4 +1,4 @@
-package model;
+package App.dal.entities;
 
 public abstract class Person {
     private String lastName;

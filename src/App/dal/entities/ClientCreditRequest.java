@@ -1,6 +1,6 @@
-package model;
+package App.dal.entities;
 
-public class CRData implements Comparable {
+public class ClientCreditRequest implements Comparable {
     @Override
     public String toString() {
         return "\n\tRequest{" +"\n\t"+
@@ -11,7 +11,7 @@ public class CRData implements Comparable {
     private double amount;
     private long clientNum;
 
-    public CRData(double amount,long clientNum) {
+    public ClientCreditRequest(double amount, long clientNum) {
         this.amount = amount;
         this.clientNum = clientNum;
     }

@@ -1,10 +1,9 @@
-package model;
+package App.dal.entities;
 
-import java.time.Year;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ClientData extends Person {
+public class Client extends Person implements Comparable{
     @Override
     public String toString() {
         return "ClientData{" + "\n" +
@@ -14,7 +13,7 @@ public class ClientData extends Person {
                 "birthYear=" + birthYear + ", \n" +
                 "nip=" + nip + ", \n" +
                 "accounts=" + accounts + ", \n" +
-                "creditRequests=" + creditRequests + "\n" +
+                "creditRequests=" + clientCreditRequests + "\n" +
                 '}';
     }
 
@@ -24,9 +23,11 @@ public class ClientData extends Person {
     private int birthYear;
     private short nip;
     private Set<Account> accounts;
-    private Set<CRData> creditRequests;
+    private Set<ClientCreditRequest> clientCreditRequests;
+    //FK
+    private long deskNum;
 
-    public ClientData(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address, long clientNum, double salary, String status, int birthYear, short nip) {
+    public Client(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address, long clientNum, double salary, String status, int birthYear, short nip) {
         super(lastName, firstName, phoneNumber, email, sex, address);
         this.clientNum = clientNum;
         this.salary = salary;
@@ -34,7 +35,7 @@ public class ClientData extends Person {
         this.birthYear = birthYear;
         this.nip = nip;
         accounts = new TreeSet<>();
-        creditRequests = new TreeSet<>();
+        clientCreditRequests = new TreeSet<>();
     }
 
     public long getClientNum() {
@@ -85,12 +86,24 @@ public class ClientData extends Person {
         this.accounts = accounts;
     }
 
-    public Set<CRData> getCreditRequests() {
-        return creditRequests;
+    public Set<ClientCreditRequest> getClientCreditRequests() {
+        return clientCreditRequests;
     }
 
+    public void setClientCreditRequests(Set<ClientCreditRequest> clientCreditRequests) {
+        this.clientCreditRequests = clientCreditRequests;
+    }
 
-    public void setCreditRequests(Set<CRData> creditRequests) {
-        this.creditRequests = creditRequests;
+    public long getDeskNum() {
+        return deskNum;
+    }
+
+    public void setDeskNum(long deskNum) {
+        this.deskNum = deskNum;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

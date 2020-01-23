@@ -1,60 +1,28 @@
-package view;
+package App.fel.view;
 
-import model.*;
 
-import java.util.Objects;
-import java.util.Random;
+import App.fel.presenter.MenuPresenter;
+
 import java.util.Scanner;
 
-public class Menu {
-    private static Menu instance;
+public class MenuView {
+    private static MenuView instance;
 
-    private Menu() {
+    private MenuView() {
     }
 
-    public static Menu getInstance() {
+    public static MenuView getInstance() {
         if (instance == null)
-            instance = new Menu();
+            instance = new MenuView();
         return instance;
     }
 
-    public void creditRequestClient(Client client) {
-        client.addCreditRequests(new CRData(addToBalance(), client.getData().getClientNum()));
-    }
 
-    public void removeToBalanceClient(Client client) {
-        Objects.requireNonNull(client.getData().getAccounts()
-                .stream().findFirst().orElse(null))
-                .setBalance(getBalance(client) - removeToBalance());
-    }
-
-    public void addToBalanceClient(Client client) {
-        Objects.requireNonNull(client.getData().getAccounts()
-                .stream().findFirst().orElse(null))
-                .setBalance(getBalance(client) + addToBalance());
-    }
-
-    public void showBalanceClient(Client client) throws InterruptedException {
-        System.out.println(getBalance(client) + "$");
+    public void showBalanceClient(App.bll.model.Client client) throws InterruptedException {
+        System.out.println(MenuPresenter.getInstance().getBalance(client) + "$");
         Thread.sleep(2000);
     }
 
-    public Client signInClientLogic(AccountManager manager) {
-        Client client = null;
-        boolean goodNum = false;
-        while (!goodNum) {
-            int temp = signInNum();
-            client = manager.getData().getClients()
-                    .stream().filter(c -> c.getData().getClientNum() == temp)
-                    .findFirst().orElse(null);
-            if (client != null)
-                goodNum = true;
-            else System.out.println("Wrong Num");
-        }
-        if (client.getData().getAccounts().isEmpty())
-            client.getData().getAccounts().add(new Account(true, createAccount()));
-        return client;
-    }
 
     public double createAccount() {
 
@@ -70,10 +38,6 @@ public class Menu {
         return selection;
     }
 
-    public double getBalance(Client client) {
-        return client.getData().getAccounts()
-                .stream().findFirst().orElse(null).getBalance();
-    }
 
     public int signInMenu() {
 
@@ -173,40 +137,5 @@ public class Menu {
 
         selection = input.nextInt();
         return selection;
-    }
-
-    public Client initClient() {
-        return new Client(new ClientData(
-                "Desforges",
-                "Luc",
-                "4504504500",
-                "desforgesluc00@gmail.com",
-                true,
-                new Address(
-                        "28",
-                        "Saint-Francois",
-                        "Valleyfield",
-                        "J6T3Y4"),
-                new Random().nextInt(),
-                16.5,
-                "couple",
-                2000,
-                (short) 1234));
-    }
-
-    public AccountManager initManager() {
-        return new AccountManager(
-                new AMData(
-                        "Desforges",
-                        "Luc",
-                        "4504504500",
-                        "desforgesluc00@gmail.com",
-                        true,
-                        new Address(
-                                "28",
-                                "Saint-Francois",
-                                "Valleyfield",
-                                "J6T3Y4"),
-                        123));
     }
 }

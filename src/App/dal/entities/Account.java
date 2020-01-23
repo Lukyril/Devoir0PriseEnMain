@@ -1,4 +1,4 @@
-package model;
+package App.dal.entities;
 
 import java.util.Random;
 
@@ -15,6 +15,8 @@ public class Account implements Comparable {
     private long number;
     private boolean type;
     private double balance;
+    //FK
+    private long clientNum;
 
     public Account(long number, boolean type, double balance) {
         this.number = number;
@@ -49,6 +51,14 @@ public class Account implements Comparable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public long getClientNum() {
+        return clientNum;
+    }
+
+    public void setClientNum(long clientNum) {
+        this.clientNum = clientNum;
     }
 
     @Override

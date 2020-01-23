@@ -1,4 +1,4 @@
-package model;
+package App.dal.entities;
 
 public class Address {
     private String civilNum;

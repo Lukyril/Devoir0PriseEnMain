@@ -1,16 +1,19 @@
-package model;
+package App.dal.entities;
+
 
 import java.util.Set;
 import java.util.TreeSet;
 
-public class AMData extends Person {
+public class AccountManager extends Person {
     private long deskNum;
     private Set<Client> clients;
+    private Set<CreditRequest> requests;
 
-    public AMData(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address, long deskNum) {
+    public AccountManager(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address, long deskNum) {
         super(lastName, firstName, phoneNumber, email, sex, address);
         this.deskNum = deskNum;
         clients = new TreeSet<>();
+        requests = new TreeSet<>();
     }
 
     public long getDeskNum() {
@@ -27,5 +30,13 @@ public class AMData extends Person {
 
     public void setClients(Set<Client> clients) {
         this.clients = clients;
+    }
+
+    public Set<CreditRequest> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<CreditRequest> requests) {
+        this.requests = requests;
     }
 }
