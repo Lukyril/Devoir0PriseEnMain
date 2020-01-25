@@ -3,7 +3,9 @@ package App.bll.model;
 import App.dal.entities.Account;
 import App.dal.entities.CreditRequest;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class AccountManager implements Comparable {
@@ -36,11 +38,11 @@ public class AccountManager implements Comparable {
         return getClient(clientNum).showBalance();
     }
 
-    public Set<App.dal.entities.Client> listClient() {
+    public List<App.dal.entities.Client> listClient() {
         return data.getClients();
     }
 
-        public void credit(CreditRequest credit, long clientNum, long accountNum) {
+    public void credit(CreditRequest credit, long clientNum, long accountNum) {
         Client tempClient = getClient(clientNum);
 
         Account tempAccount = getAccountStream(tempClient)
@@ -99,6 +101,30 @@ public class AccountManager implements Comparable {
         credit.accept();
     }
 
+    public void sortFirstPositionClient() {
+
+        AtomicReference<App.dal.entities.Client> bestClient = new AtomicReference<>(Objects.requireNonNull(data.getClients()
+                .stream().findFirst().orElse(null)));
+        AtomicReference<Double> bestSalary = new AtomicReference<>(getSalary(bestClient.get()));
+        final int[] i = {-1};
+        AtomicReference<Integer> bestPosition = new AtomicReference<Integer>(0);
+        data.getClients().forEach(c -> {
+            i[0]++;
+
+            if (getSalary(c) > bestSalary.get()) {
+                bestClient.set(c);
+                bestPosition.set(i[0]);
+                bestSalary.set(getSalary(c));
+            }
+        });
+        data.getClients().set(bestPosition.get(), data.getClients().get(0));
+        data.getClients().set(0, bestClient.get());
+    }
+
+    public double getSalary(App.dal.entities.Client bestClient) {
+        return bestClient
+                .getSalary();
+    }
 
     @Override
     public int compareTo(Object o) {

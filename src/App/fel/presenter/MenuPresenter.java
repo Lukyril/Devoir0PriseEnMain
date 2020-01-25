@@ -1,7 +1,7 @@
 package App.fel.presenter;
 
-import App.bll.control.RequestManagement;
-import App.dal.DataFacade;
+import App.bll.control.ManagerService;
+import App.bll.model.Client;
 import App.dal.entities.Account;
 import App.dal.entities.ClientCreditRequest;
 import App.fel.view.MenuView;
@@ -20,10 +20,7 @@ public class MenuPresenter {
 
 
     public void MenuDynamics(MenuView menuView) throws InterruptedException {
-        App.bll.model.AccountManager manager = new App.bll.model.AccountManager(DataFacade.getInstance().getDao().initManager());
-        RequestManagement.getInstance().addManager(manager);
-        for (int i = 0; i < 5; i++)
-            manager.addClient(DataFacade.getInstance().getDao().initClient());
+        App.bll.model.AccountManager manager = ManagerService.getInstance().getAccountManager();
         int tempMenu = 0;
         while (tempMenu != 3) {
             tempMenu = menuView.signInMenu();
@@ -46,6 +43,9 @@ public class MenuPresenter {
                             case 4:
                                 creditRequestClient(client);
                                 break;
+                            case 5:
+                                showHistory(client);
+                                break;
                         }
                     }
                     break;
@@ -54,6 +54,9 @@ public class MenuPresenter {
                     while (tempManager != 7) {
                         tempManager = menuView.managerMenu();
                         switch (tempManager) {
+                            case 1:
+                                manager.sortFirstPositionClient();
+                            case 2:
                             case 3:
                                 manager.listClient()
                                         .forEach(c -> System.out.println(c.toString()));
@@ -64,9 +67,19 @@ public class MenuPresenter {
         }
     }
 
+    private void showHistory(Client client) {
+        MenuView.getInstance().showHistory(client.showHistory());
+    }
 
-    public void creditRequestClient(App.bll.model.Client client) {
-        client.addCreditRequests(new ClientCreditRequest(MenuView.getInstance().addToBalance(), client.getData().getClientNum()));
+
+    public void creditRequestClient(App.bll.model.Client client) throws InterruptedException {
+
+        MenuView.getInstance()
+                .showIfAccepted(client
+                        .addCreditRequests(new ClientCreditRequest(
+                                MenuView.getInstance().addToBalance(),
+                                client.getData().getClientNum())));
+
     }
 
     public void removeToBalanceClient(App.bll.model.Client client) {

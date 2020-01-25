@@ -7,6 +7,16 @@ import App.dal.entities.Client;
 import java.util.Random;
 
 public class InMemoryDAO implements IDAO {
+    private AccountManager accountManager;
+
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
+
     public Client initClient() {
         return new Client(
                 "Desforges",
@@ -19,25 +29,26 @@ public class InMemoryDAO implements IDAO {
                         "Saint-Francois",
                         "Valleyfield",
                         "J6T3Y4"),
-                new Random().nextInt(),
-                16.5,
+                new Random().nextInt(10000),
+                new Random().nextDouble()*120,
                 "couple",
                 2000,
                 (short) 1234);
     }
 
     public AccountManager initManager() {
-        return new AccountManager(
-                        "Desforges",
-                        "Luc",
-                        "4504504500",
-                        "desforgesluc00@gmail.com",
-                        true,
-                        new Address(
-                                "28",
-                                "Saint-Francois",
-                                "Valleyfield",
-                                "J6T3Y4"),
-                        123);
+        accountManager = new AccountManager(
+                "Desforges",
+                "Luc",
+                "4504504500",
+                "desforgesluc00@gmail.com",
+                true,
+                new Address(
+                        "28",
+                        "Saint-Francois",
+                        "Valleyfield",
+                        "J6T3Y4"),
+                123);
+        return accountManager;
     }
 }

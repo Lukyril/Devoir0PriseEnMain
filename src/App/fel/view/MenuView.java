@@ -63,7 +63,7 @@ public class MenuView {
 
         /***************************************************/
 
-        System.out.println("Please Enter Your Nip");
+        System.out.println("Please Enter Your Client Num");
         System.out.println("-------------------------\n");
 
         selection = input.nextInt();
@@ -137,5 +137,17 @@ public class MenuView {
 
         selection = input.nextInt();
         return selection;
+    }
+
+    public void showIfAccepted(boolean shouldBeAccepted) throws InterruptedException {
+        if (shouldBeAccepted)
+            System.out.println("You are eligible");
+        else
+            System.out.println("You are not eligible");
+        Thread.sleep(2000);
+    }
+
+    public void showHistory(String showHistory) {
+        System.out.println(showHistory);
     }
 }

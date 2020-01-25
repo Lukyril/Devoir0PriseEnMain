@@ -6,4 +6,5 @@ import App.dal.entities.Client;
 public interface IDAO {
     Client initClient();
     AccountManager initManager();
+    AccountManager getAccountManager();
 }

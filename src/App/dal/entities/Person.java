@@ -8,7 +8,7 @@ public abstract class Person {
     private boolean sex;
     private Address address;
 
-    protected Person(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address) {
+    public Person(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
@@ -17,51 +17,51 @@ public abstract class Person {
         this.address = address;
     }
 
-    protected String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    protected void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    protected String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    protected void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    protected String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    protected void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    protected String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    protected void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    protected boolean isMale() {
+    public boolean isMale() {
         return sex;
     }
 
-    protected void setMale(boolean sex) {
+    public void setMale(boolean sex) {
         this.sex = sex;
     }
 
-    protected Address getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    protected void setAddress(Address address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }
