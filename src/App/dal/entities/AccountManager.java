@@ -8,12 +8,14 @@ import java.util.TreeSet;
 
 public class AccountManager extends Person {
     private long deskNum;
+    private String password;
     private ArrayList<Client> clients;
     private Set<CreditRequest> requests;
 
     public AccountManager(String lastName, String firstName, String phoneNumber, String email, boolean sex, Address address, long deskNum) {
         super(lastName, firstName, phoneNumber, email, sex, address);
         this.deskNum = deskNum;
+        this.password = "password";
         clients = new ArrayList<>();
         requests = new TreeSet<>();
     }
@@ -40,5 +42,13 @@ public class AccountManager extends Person {
 
     public void setRequests(Set<CreditRequest> requests) {
         this.requests = requests;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

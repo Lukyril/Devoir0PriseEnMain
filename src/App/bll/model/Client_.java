@@ -1,6 +1,7 @@
 package App.bll.model;
 
 import App.dal.entities.Account;
+import App.dal.entities.Client;
 import App.dal.entities.ClientCreditRequest;
 
 import java.util.ArrayList;
@@ -8,22 +9,22 @@ import java.util.List;
 
 import static App.bll.control.RequestManagement.getInstance;
 
-public class Client implements Comparable {
-    private App.dal.entities.Client data;
+public class Client_ implements Comparable {
+
+    private Client data;
+    public Client getData() {
+        return data;
+    }
+    public void setData(Client data) {
+        this.data = data;
+    }
+
     private List<Transaction> transactions;
 
-    public Client(App.dal.entities.Client data) {
+    public Client_(Client data) {
         this.data = data;
         transactions = new ArrayList<>();
 
-    }
-
-    public App.dal.entities.Client getData() {
-        return data;
-    }
-
-    public void setData(App.dal.entities.Client data) {
-        this.data = data;
     }
 
 
@@ -53,11 +54,17 @@ public class Client implements Comparable {
         return account.getBalance();
     }
 
+
     public boolean addCreditRequests(ClientCreditRequest request) {
-        data.getClientCreditRequests().add(request);
-        transactions.add(new Transaction("addCreditRequests: " + request.getAmount() + "$"));
-        return getInstance().requestCredit(request, this);
+
+        if (getInstance().requestCredit(request, this)) {
+            data.getClientCreditRequests().add(request);
+            transactions.add(new Transaction("addCreditRequests: " + request.getAmount() + "$"));
+            return true;
+        } else
+            return false;
     }
+
 
     private Account getAccount() {
         Account account = data.getAccounts()
